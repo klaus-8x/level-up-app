@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#101827">
+  <meta name="description" content="LEVEL UP – dein Life Toolkit für Schule, Körper und Kopf.">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <title>LEVEL UP – Life Toolkit</title>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="LEVEL UP Startseite"><span class="brand-mark">↗</span><span>LEVEL <b>UP</b></span></a>
+    <button id="installBtn" class="install-btn" hidden>App installieren</button>
+  </header>
+
+  <main class="shell">
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">DEIN LIFE TOOLKIT</p>
+        <h1>Mach kleine Schritte.<br><span>Wachs in deinem Tempo.</span></h1>
+        <p class="sub">Für Schule, Körper, Kopf – und alle Tage dazwischen.</p>
+      </div>
+      <div class="level-card">
+        <div class="level-top"><span>DEIN LEVEL</span><span id="levelNumber">01</span></div>
+        <div class="level-name" id="levelName">Starter</div>
+        <div class="xp-line"><div id="xpBar"></div></div>
+        <div class="xp-caption"><span id="xpText">0 XP</span><span id="nextXp">Noch 100 XP bis Level 2</span></div>
+      </div>
+    </section>
+
+    <section class="daily-row">
+      <div><span class="eyebrow">DEIN TAGES-BOOST</span><p id="dailyBoost">Du musst nicht alles auf einmal schaffen. Ein kleiner Schritt zählt.</p></div>
+      <button id="newBoost" class="round-btn" aria-label="Neuen Tages-Boost anzeigen">↻</button>
+    </section>
+
+    <nav class="tabs" aria-label="Hauptnavigation">
+      <button class="tab active" data-view="worlds">Welten</button>
+      <button class="tab" data-view="favorites">Favoriten</button>
+      <button class="tab" data-view="progress">Mein Fortschritt</button>
+    </nav>
+
+    <section id="worldsView" class="view">
+      <div class="section-heading"><div><p class="eyebrow">FINDE, WAS DIR GERADE HILFT</p><h2>Deine Welten</h2></div><span class="tiny-count" id="doneCount">0 / 26 erledigt</span></div>
+      <div id="worldGrid" class="world-grid"></div>
+      <div id="hackPanel" class="hack-panel" hidden>
+        <div class="panel-head"><div><p class="eyebrow" id="panelEyebrow">DEINE HACKS</p><h2 id="panelTitle">School Smart</h2></div><button id="closePanel" class="close-btn" aria-label="Schließen">×</button></div>
+        <div id="hackList" class="hack-list"></div>
+      </div>
+    </section>
+
+    <section id="favoritesView" class="view" hidden>
+      <div class="section-heading"><div><p class="eyebrow">DEINE SAMMLUNG</p><h2>Favoriten</h2></div></div>
+      <div id="favoriteList" class="hack-list"></div>
+    </section>
+
+    <section id="progressView" class="view" hidden>
+      <div class="section-heading"><div><p class="eyebrow">KLEINE SCHRITTE ZÄHLEN</p><h2>Mein Fortschritt</h2></div></div>
+      <div class="stats-grid">
+        <article class="stat-card"><span>ERLEDIGTE HACKS</span><strong id="statDone">0</strong></article>
+        <article class="stat-card"><span>GESAMT XP</span><strong id="statXp">0</strong></article>
+        <article class="stat-card"><span>FAVORITEN</span><strong id="statFav">0</strong></article>
+      </div>
+      <article class="challenge-card">
+        <p class="eyebrow">DEINE 14-TAGE-CHALLENGE</p>
+        <h3>14 Tage. Kleine Schritte.</h3>
+        <p>Kein Wettbewerb. Du kannst jederzeit pausieren oder neu anfangen.</p>
+        <div class="challenge-track" id="challengeTrack"></div>
+        <div class="challenge-actions"><span id="challengeStatus">Noch nicht gestartet</span><button id="challengeBtn" class="primary-btn">Challenge starten</button></div>
+      </article>
+      <article class="mood-card">
+        <p class="eyebrow">KURZER CHECK-IN</p><h3>Wie geht's dir gerade?</h3>
+        <p>Du musst nichts erklären. Wähle einfach, was am ehesten passt.</p>
+        <div class="mood-options">
+          <button data-mood="🙂" aria-label="Gut">🙂<small>Gut</small></button>
+          <button data-mood="😐" aria-label="Okay">😐<small>Okay</small></button>
+          <button data-mood="😔" aria-label="Traurig">😔<small>Traurig</small></button>
+          <button data-mood="😣" aria-label="Gestresst">😣<small>Gestresst</small></button>
+          <button data-mood="😴" aria-label="Erschöpft">😴<small>Müde</small></button>
+        </div>
+        <p id="moodSaved" class="muted small"></p>
+      </article>
+      <article class="backup-card">
+        <p class="eyebrow">DEINE DATEN BLEIBEN BEI DIR</p><h3>Backup & Teilen</h3>
+        <p>Dein Fortschritt wird nur in diesem Browser auf diesem Gerät gespeichert. Exportiere gelegentlich eine Sicherung.</p>
+        <div class="button-row"><button id="exportBtn" class="secondary-btn">Backup exportieren</button><label class="secondary-btn file-label">Backup importieren<input id="importFile" type="file" accept="application/json"></label></div>
+        <button id="shareBtn" class="text-btn">LEVEL UP per WhatsApp teilen ↗</button>
+        <p class="muted tiny">Zum Teilen der installierbaren App brauchst du nach der Veröffentlichung den öffentlichen HTTPS-Link.</p>
+      </article>
+    </section>
+
+    <section class="sos-banner">
+      <div><span class="sos-icon">♡</span><div><strong>Heute ist kein guter Tag?</strong><p>Du musst da nicht allein durch.</p></div></div>
+      <button id="sosBtn">Feel Good öffnen <span>→</span></button>
+    </section>
+
+    <footer><span>LEVEL UP · Dein Tempo zählt.</span><button id="privacyBtn">Datenschutz</button></footer>
+  </main>
+
+  <dialog id="sosDialog" class="modal">
+    <div class="modal-content warm-modal">
+      <button class="modal-close" data-close="sosDialog" aria-label="Schließen">×</button>
+      <div class="warm-orb">♡</div><p class="eyebrow">FEEL GOOD · PAUSE IST ERLAUBT</p>
+      <h2>Erst mal durchatmen.</h2>
+      <p class="modal-intro">Du musst gerade nichts leisten. Such dir nur einen kleinen nächsten Schritt aus.</p>
+      <div class="sos-steps">
+        <div><span>01</span><p><b>Was fühlst du gerade?</b><br><small>Traurig, wütend, leer, gestresst oder etwas ganz anderes – alles darf da sein.</small></p></div>
+        <div><span>02</span><p><b>Was könnte jetzt guttun?</b><br><small>Wasser trinken, Musik hören, kurz rausgehen oder dich einkuscheln.</small></p></div>
+        <div><span>03</span><p><b>Wen könntest du ansprechen?</b><br><small>Eine Freundin, ein Elternteil, eine Lehrkraft oder eine andere Vertrauensperson.</small></p></div>
+      </div>
+      <button class="primary-btn full" data-go-feelgood>Feel-Good-Hacks ansehen</button>
+      <p class="support-note">Wenn du dich länger schlecht fühlst oder allein nicht weiterweißt, hol dir Unterstützung bei einer vertrauten erwachsenen Person. Wenn du dich akut nicht sicher fühlst, wende dich sofort an eine erwachsene Vertrauensperson oder den örtlichen Notruf.</p>
+    </div>
+  </dialog>
+
+  <dialog id="privacyDialog" class="modal">
+    <div class="modal-content"><button class="modal-close" data-close="privacyDialog" aria-label="Schließen">×</button><p class="eyebrow">DATENSCHUTZ</p><h2>Deine Daten bleiben bei dir.</h2><p>LEVEL UP speichert Fortschritt, Favoriten, Challenge und Stimmungseinträge lokal im Speicher deines Browsers. Es gibt in dieser Version kein Benutzerkonto, keinen App-Server und keine Analyse- oder Werbetracker. Beim Löschen der Browserdaten können auch deine App-Daten verloren gehen. Nutze deshalb bei Bedarf den Backup-Export.</p><button class="primary-btn full" data-close="privacyDialog">Alles klar</button></div>
+  </dialog>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
